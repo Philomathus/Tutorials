@@ -1,0 +1,200 @@
+package com.company;
+
+import java.util.*;
+
+public class Dinglemouse {
+
+    public static void main(String[] args) {
+        final int[][] queues = {
+                new int[0],
+                new int[]{0,0,0,6},
+                new int[0],
+                new int[0],
+                new int[0],
+                new int[]{6,6,0,0,0,6},
+                new int[0]
+        };
+
+        System.out.println("\nRESULT: " + Arrays.toString(theLift(queues, 5)));
+
+    }
+
+    public static int[] theLift(final int[][] queues, final int capacity) {
+
+        Queue queue = new Queue(capacity);
+        Dinglemouse main = new Dinglemouse();
+        String concat = "0";
+        boolean isUp = true;
+        int startingPoint = 0;
+        int secondStarting = 0;
+        int floor = 0;
+        boolean isAdded = true;
+        boolean isConcatenated = true;
+
+        while(!main.isLiftEmpty(queues)){
+            for(int row = 0; row<queues.length; row++){
+
+                while(queue.isFloorInQueue(startingPoint)){
+                    queue.deQueue(startingPoint);
+                    floor = startingPoint;
+
+                    if(isConcatenated){
+                        if(!(startingPoint == 0 && !isUp)){
+                            concat += String.valueOf(startingPoint);
+                        }
+                    }
+
+                    isConcatenated = false;
+                }
+
+
+                isConcatenated = true;
+
+                for(int column = 0; column<queues[startingPoint].length; column++){
+                    if(!queue.isFull()){
+                        if(isUp){
+                            if(startingPoint < queues[startingPoint][secondStarting] && queues[startingPoint][secondStarting] > -1) {
+                                queue.enQueue(queues[startingPoint][secondStarting]);
+                                if(floor != startingPoint && isAdded){
+                                    concat += String.valueOf(startingPoint);
+                                }
+                                queues[startingPoint][secondStarting] = -1;
+                            }else{
+                                secondStarting++;
+                                continue;
+                            }
+                        }else{
+                            if(startingPoint-1 > queues[startingPoint-1][secondStarting] && queues[startingPoint-1][secondStarting] > -1){
+                                queue.enQueue(queues[startingPoint-1][secondStarting]);
+                                if(floor != startingPoint && isAdded){
+                                    concat += String.valueOf(startingPoint);
+                                }
+                                queues[startingPoint][secondStarting] = -1;
+                            }else{
+                                secondStarting++;
+                                continue;
+                            }
+                        }
+                        secondStarting++;
+                        isAdded = false;
+                    }else{
+                        break;
+                    }
+                }
+                isAdded = true;
+                startingPoint = ( (isUp) ? startingPoint + 1 : startingPoint - 1);
+                secondStarting = 0;
+            }
+
+            if( startingPoint == queues.length ){
+                isUp = false;
+                startingPoint = queues.length;
+                secondStarting = queues.length;
+            }else{
+                startingPoint = 0;
+                secondStarting = 0;
+                isUp = true;
+            }
+        }
+
+        concat += String.valueOf(0);
+        int[] floorVisited = new int[concat.length()];
+        for(int i = 0; i < concat.length(); i++){
+            floorVisited[i] = Integer.parseInt(String.valueOf(concat.charAt(i)));
+        }
+
+        return floorVisited;
+    }
+
+    public boolean isLiftEmpty(int[][] queues){
+        for(int row = 0; row<queues.length; row++){
+            for(int column = 0; column<queues[row].length; column++){
+                if(queues[row][column] > -1){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static class Queue{
+        Dinglemouse.Node head;
+        Dinglemouse.Node tail;
+        int capacity = 0;
+
+
+        public Queue(int capacity){
+            this.capacity = capacity;
+        }
+
+        void enQueue(int floor){
+            if(head == null){
+                head = new Node(floor);
+            }
+
+            tail = head;
+            while(tail.next != null){
+                tail = tail.next;
+            }
+            tail.next = new Node(floor);
+        }
+
+        boolean isFull(){
+            int counter = 0;
+            tail = head;
+            while(tail != null){
+                counter++;
+                if(counter == capacity){
+                    return true;
+                }
+                tail = tail.next;
+            }
+            return false;
+        }
+
+        void deQueue(int floor){
+            Node previous;
+
+            if(head.floor == floor && head.next == null){
+                head = null;
+            }else if(head.floor == floor){
+                head = head.next;
+                return;
+            }
+
+            tail = head;
+            while(tail != null){
+                if(tail.next.floor ==  floor){
+                    previous = tail;
+                    previous.next = tail.next.next;
+                    break;
+                }
+                tail = tail.next;
+            }
+        }
+
+        boolean isFloorInQueue(int floor){
+            Node tail;
+
+            if(head != null){
+                tail = head;
+                while(tail != null){
+                    if(tail.floor == floor){
+                        return true;
+                    }
+                    tail = tail.next;
+                }
+            }
+            return false;
+        }
+    }
+
+    public static class Node{
+        int floor;
+        Node next;
+
+        public Node(int floor){
+            this.floor = floor;
+        }
+    }
+}
