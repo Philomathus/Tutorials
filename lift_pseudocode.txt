@@ -1,0 +1,78 @@
+queues = {
+	{1,2,3}
+	{}
+}
+
+
+ArrayList<Integer>[] floors = ...
+int floorNum = 0;
+boolean isGoingUp = true;
+List<Integer> lift = new LinkedList<>();
+int totalNumberOfPeopleWaiting = count(queues); 
+
+
+while(totalNumberOfPeopleWaiting > 0) {
+
+
+	boolean hasStopped = false;
+
+	//unload
+	if(lift.contains(floorNum)) {
+		//unloading logic here
+		//decrement totalNumberOfPeopleWaiting
+		hasStopped = true;
+	}
+
+	//load
+	if(int i = 0; i < floors[floorNum].length; ++i) {
+
+		if(isGoingUp) {
+			if(floor[floorNum].get(i) > floorNum) {
+				
+				if(lift.size() < capacity) {
+					lift.add(floorNum);
+				}
+
+				hasStopped = true;
+
+			}			
+		} else { //isGoingDown
+
+			if(floor[floorNum].get(i) < floorNum) {
+				if(lift.size() < capacity) {
+					lift.add(floorNum);
+				}
+
+				hasStopped = true;
+			}
+
+			
+			
+		}
+
+	}
+
+	if(hasStopped) {
+		
+		//check for duplicates
+		floorStopped.add(floorNum);
+
+	}
+
+	//update floorNum and isGoingUp
+	if(isGoingUp) {
+		floorNum++;
+
+		if(floorNum == floors.length - 1) {
+			isGoingUp = false;
+		}
+	} else { // isGoingDown
+		floorNum--;
+		
+		if(floorNum == 0) {
+			isGoingUp = true;
+		}
+	}
+
+}
+
