@@ -1,0 +1,75 @@
+1) What is the difference between List and ArrayList?
+
+	List is just an interface; it contains a collection of method heads that a list must implement.
+	Because it's an interface, it doesn't have a default implementation for those methods.
+	You can't instantiate it and use it directly.
+
+	ArrayList is a full implementation of the List interface.
+	It's called ArrayList because it uses an array internally to store the values.
+
+	Basically, List is an interface and ArrayList is an implementation.
+
+2) What is the difference between ArrayList and Map?
+	
+	ArrayList is a list data structure, it stores the values sequentially and can be accessed using their indices (0 for the 1st element, 1 for the 2nd element, and so on).
+
+	Map is an interface for the map data structure. 
+	The map data structure stores key-value pairs. 
+	A value can be accessed using a key that it is paired with. 
+	One key can only be paired with one value.
+
+	But Map, just by itself, is an interface.
+	It's a collection of method heads that a map data structure must implement.
+	We cannot instantiate and use it directly.
+	The most commonly used implementation of Map is the HashMap.
+	
+	Basically, ArrayList is a collection of values accessed using their indices and the Map data structure is a collection of key-value pairs, where the values can be accessed using their keys.
+	
+3) What is the difference between HashMap and HashSet?
+
+	HashMap is an implementation of the Map data structure.
+	It's a collection of key-value pairs.
+	One key can only be paired with one value.
+	A value can be accessed using a key that it is paired with.
+	It uses an array inside to store the values.
+	It uses a hash function to determine the index of the value inside.
+	That is why it is called HashMap.
+	
+	HashSet is an implementation of the Set data structure.
+	It's a collection of values where duplicates aren't allowed.
+	Inside, it uses the HashMap to store the values.
+	The elements you insert are stored as keys of this HashMap.
+	
+	Basically, the HashMap stores key-value pairs where the values can be accessed using their keys and the HashSet is a collection of unique values. 
+	
+4) What is the difference between HashMap and TreeMap?
+
+	HashMap is an implementation of the Map data structure.
+	It's a collection of key-value pairs.
+	One key can only be paired with one value.
+	A value can be accessed using a key that it is paired with.
+	It uses an array inside to store the values.
+	It uses a hash function to determine the index of the value inside.
+	That is why it's called "HashMap".
+	
+	TreeMap is another implementation of the Map data structure.
+	It uses a tree data structure inside of it's definition, hence the name.
+	But the main difference is that the TreeMap keeps the order in which the key-value pairs were added while HashMap does not.
+
+5) What is the difference between array and ArrayList?
+
+	Basically, an array is a data structure with a fixed size where you can get and set elements using indices. 
+	The ArrayList can also set and get elements using their indices but it doesn't have a fixed size.
+
+6) What is the difference between ArrayList and LinkedList?
+
+	ArrayList and LinkedList are both implementations of the list data structure.
+	Inside however, ArrayList uses an array to store the values while LinkedList uses nodes which link sequentially.
+
+7) What is the difference between Vector and ArrayList?
+
+	They are actually very similar, they both implement the List interface, but Vector is synchronized while ArrayList is not.
+
+8) Talk about Hashtable.
+
+	Basically, the Hashtable is a data structure that stores key-value pairs. It's very similar to the HashMap, but the key difference is that it doesn't allow null keys nor values. The Hashtable is also synchronized while HashMap is not.
